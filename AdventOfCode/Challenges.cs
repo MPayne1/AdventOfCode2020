@@ -65,6 +65,7 @@ namespace AdventOfCode
 
         public void Day2()
         {
+            Console.WriteLine("Day: 2");
             List<PasswordPolicy> passwordList = new List<PasswordPolicy>();
 
             IEnumerable<string> rawLines = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day2Input.txt");
@@ -109,6 +110,7 @@ namespace AdventOfCode
 
         public void Day3()
         {
+            Console.WriteLine("Day: 3");
             var lines = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day3Input.txt");
             int trees = 0;
 
@@ -159,6 +161,194 @@ namespace AdventOfCode
             }
 
             Console.WriteLine($"Total: {total}");
+        }
+
+
+        public void Day4()
+        {
+            Console.WriteLine("Day: 4");
+            // read input
+            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day4Input.txt");
+            var passports = data.Split(new string[] { "\r\n\r\n" },StringSplitOptions.RemoveEmptyEntries);
+
+            int validPassports = 0;
+
+            int missingComponents = 0;
+            string birthYear = "byr";
+            string issueYear = "iyr";
+            string expirationYear = "eyr";
+            string hairColour = "hcl";
+            string height = "hgt";
+            string eyeColour = "ecl";
+            string passportId = "pid";
+            string countryId = "cid";
+
+            foreach (var passport in passports)
+            {
+
+                //basic validation
+                if (false == passport.Contains(birthYear)) missingComponents++;
+                if (false == passport.Contains(issueYear)) missingComponents++;
+                if (false == passport.Contains(expirationYear)) missingComponents++;
+                if (false == passport.Contains(hairColour)) missingComponents++;
+                if (false == passport.Contains(height)) missingComponents++;
+                if (false == passport.Contains(eyeColour)) missingComponents++;
+                if (false == passport.Contains(passportId)) missingComponents++;
+
+                var isValid = false;
+                if (missingComponents == 0) {
+                    isValid = true;
+                } else { isValid = false; }
+
+                missingComponents = 0;
+
+                //more validation
+                char[] separator = new char[] { ' ', '\r' };
+                var infos = passport.Split(separator);
+                if(isValid == true)
+                {
+                    foreach (var info in infos)
+                    {
+                        if (isValid && info.Contains(birthYear))
+                        {
+                            var b = info.Split(':');
+                            int year = int.Parse(b[1]);
+
+                            if (1920 <= year && year <= 2002) {
+                                isValid = true;
+                            } else {
+                                isValid = false;
+                            }
+                        }
+
+                        if (isValid && info.Contains(issueYear))
+                        {
+                            var b = info.Split(':');
+                            int year = int.Parse(b[1]);
+                            if (2010 <= year && year <= 2020) { isValid = true; } else { isValid = false; }
+                        }
+
+                        if (isValid && info.Contains(expirationYear))
+                        {
+                            var b = info.Split(':');
+                            int year = int.Parse(b[1]);
+                            if (2020 <= year && year <= 2030) { isValid = true; } else { isValid = false; }
+                        }
+
+                        if (isValid && info.Contains(hairColour))
+                        {
+                            var h = info.Split(':')[1];
+
+                            if (h.StartsWith('#'))
+                            {
+                                if(h.Remove(0, 1).Length == 6)
+                                {
+                                    isValid = true;
+                                }
+                                else
+                                {
+                                    isValid = false;
+                                }
+                            }else
+                            {
+                                isValid = false;
+                            }
+                        }
+
+                        if (isValid && info.Contains(height))
+                        {
+
+                            var inf = info.Remove(0, 4);
+                            if (inf.Contains("cm"))
+                            {
+                                var cm = inf.Split("cm");
+                                if (cm[0].StartsWith(':')) cm[0] = cm[0].Remove(0, 1);
+                                try
+                                {
+                                    var cmI = int.Parse(cm[0]);
+                                    if(150 <= cmI && cmI <= 193)
+                                    {
+                                        isValid = true;
+                                    }
+                                    else
+                                    {
+                                        isValid = false;
+                                    }
+                                }
+                                catch(Exception e)
+                                {
+                                    isValid = false;
+                                }
+                            
+                            } else if (inf.Contains("in"))
+                            {
+                                var inI = inf.Split("in");
+                                if(inI[0].StartsWith(':')) inI[0] =inI[0].Remove(0, 1);
+                                try
+                                {
+                                    var cmI = int.Parse(inI[0]);
+                                    if (59 <= cmI && cmI <= 76)
+                                    {
+                                        isValid = true;
+                                    }
+                                    else
+                                    {
+                                        isValid = false;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    isValid = false;
+                                }
+                            } else
+                            {
+                                isValid = false;
+                            }
+
+                        }
+
+                        if (isValid && info.Contains(eyeColour))
+                        {
+                            var e = info.Split(':')[1];
+                        
+                            if(e.Equals("amb") || e.Equals("blu") || e.Equals("brn") || e.Equals("gry") || e.Equals("grn") || e.Equals("hzl") || e.Equals("oth"))
+                            {
+                                isValid = true;
+                            }
+                            else
+                            {
+                                isValid = false;
+                            }
+                        }
+
+                        if (isValid && info.Contains(passportId))
+                        {
+                            var b = info.Split(':');
+                            
+                            if (b[1].Length == 9)
+                            {
+                                try { 
+                                    var p = int.Parse(b[1]);
+                                    isValid = true;
+                                }
+                                catch(Exception e)
+                                {
+                                    isValid = false;
+                                }
+                            } else
+                            {
+                                isValid = false;
+                            }
+
+                            
+                        }
+                    }
+
+                    if (isValid) validPassports++;
+                }
+                
+            }
+            Console.WriteLine($"Valid Passports: {validPassports}");
         }
     }
 }
