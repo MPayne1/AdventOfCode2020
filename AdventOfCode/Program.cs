@@ -14,7 +14,10 @@ namespace AdventOfCode
             // challenges.Day1();
             // Console.ReadLine();
 
-            challenges.Day2();
+            //challenges.Day2();
+            //Console.ReadLine();
+
+            challenges.Day3();
             Console.ReadLine();
         }
 

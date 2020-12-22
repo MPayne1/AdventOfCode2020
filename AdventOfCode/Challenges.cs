@@ -105,5 +105,60 @@ namespace AdventOfCode
             
 
         }
+
+
+        public void Day3()
+        {
+            var lines = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day3Input.txt");
+            int trees = 0;
+
+            char tree = '#';
+            bool firstDone = false;
+
+
+            int rightPos = 0;
+           // int rightInc = 3;
+            int[] rightIncs = new int[] { 1, 3, 5, 7, 1};
+            bool skip = false;
+            long total = 1;
+            for(int j =0; j < rightIncs.Length; j++)
+            {
+                if (j == 4) skip = true;
+                for(int i=0; i< lines.Length; i++)
+                {
+                    if(firstDone == false)
+                    {
+                        firstDone = true;
+                        rightPos += rightIncs[j];
+                        if (lines[i].StartsWith(tree)) trees++;
+                        continue;
+                    }
+
+                    if(!skip)
+                    {
+                        while(lines[i].Length <= (rightPos + 1))
+                        {
+                            var a = lines[i];
+                            var b = a + a;
+                   
+                            lines[i] = b;
+                        }
+                
+                        if (lines[i].Substring(rightPos, 1).Equals(tree.ToString())) trees++;
+                        rightPos += rightIncs[j];
+                    }
+
+                    if (j == 4) skip = !skip;
+                  
+                }
+                Console.WriteLine($"RightInc: {rightIncs[j]}, Trees: {trees}");
+                total = total * trees;
+                trees = 0;
+                rightPos = 0;
+                firstDone = false;
+            }
+
+            Console.WriteLine($"Total: {total}");
+        }
     }
 }
