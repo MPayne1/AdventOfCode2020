@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace AdventOfCode
 {
@@ -7,6 +8,16 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            Challenges challenges = new Challenges();
+
+            challenges.Day1();
+            Console.ReadLine();
+
+
         }
+
+
+        
     }
 }
