@@ -11,13 +11,14 @@ namespace AdventOfCode
 
             Challenges challenges = new Challenges();
 
-            challenges.Day1();
+            // challenges.Day1();
+            // Console.ReadLine();
+
+            challenges.Day2();
             Console.ReadLine();
-
-
         }
 
 
-        
+
     }
 }
