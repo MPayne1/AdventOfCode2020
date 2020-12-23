@@ -462,6 +462,7 @@ namespace AdventOfCode
         const string myBag = "shiny gold";
         public void Day7()
         {
+            Console.WriteLine("Day: 7");
             var rules = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day7Input.txt")
         .ToImmutableDictionary(
           line => Regex.Match(line, @"^(\w+ \w+)", Compiled).Groups[1].Value,
@@ -487,6 +488,99 @@ namespace AdventOfCode
             int GetContainedBagsCount(string bag) =>
                rules[bag].Sum(b => b.Value + b.Value * GetContainedBagsCount(b.Key));
 
+        }
+
+        public void Day8()
+        {
+            Console.WriteLine("Day: 8");
+            var instructions = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day8Input.txt");
+
+            List<int> visited = new List<int>();
+            bool finished = false;
+            int total = 0;
+            string[] cached = new string[instructions.Length];
+            for(int k =0; k< instructions.Length;k++)
+            {
+                cached[k] = instructions[k];
+            }
+
+            for(int j=0; j< instructions.Count(); j++)
+            {
+                if (!finished)
+                {
+                    var cachedInstr = instructions[j];
+                    if (instructions[j].Contains("jmp"))
+                    {
+                        instructions[j] = instructions[j].Replace("jmp", "nop");
+                    } else if (instructions[j].Contains("nop"))
+                    {
+                        instructions[j] = instructions[j].Replace("nop", "jmp");
+                    }
+
+                    total = 0;
+                    bool infinite = false;
+                    for (int i = 0; i < instructions.Count();)
+                    {
+                        if (infinite == false)
+                        {
+                            if (false == visited.Contains(i))
+                            {
+                                var ins = instructions[i].Split(' ');
+                                switch (ins[0])
+                                {
+                                    case "acc":
+                                        visited.Add(i);
+                                        var val = int.Parse(ins[1].Remove(0, 1));
+                                        if (ins[1].Contains('+'))
+                                        {
+                                            total += val;
+                                            i++;
+                                        }
+                                        else if (ins[1].Contains('-'))
+                                        {
+                                            total -= val;
+                                            i++;
+                                        }
+                                        break;
+                                    case "jmp":
+                                        visited.Add(i);
+                                        var jmpVal = int.Parse(ins[1].Remove(0, 1));
+                                        if (ins[1].Contains('+'))
+                                        {
+                                            i += jmpVal;
+                                        }
+                                        else if (ins[1].Contains('-'))
+                                        {
+                                            i -= jmpVal;
+                                        }
+                                        break;
+
+                                    case "nop":
+                                        visited.Add(i);
+                                        i++;
+                                        break;
+                                    default: break;
+                                }
+                                finished = true;
+                            }
+                            else
+                            {
+                                //Console.WriteLine($"Total: {total}");
+                                finished = false;
+                                infinite = true;
+                                break;
+                            }
+                        }
+                    }
+                    visited.Clear();
+                    instructions[j] = cachedInstr;
+                } else
+                {
+                    Console.WriteLine($"Fixed Total: {total}");
+                }
+            }
+
+            Console.WriteLine($"End total: {total}");
         }
     }
 }
