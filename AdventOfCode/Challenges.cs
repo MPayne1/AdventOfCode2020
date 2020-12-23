@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace AdventOfCode
 {
@@ -400,6 +401,57 @@ namespace AdventOfCode
                     Console.WriteLine($"My Seat: {j}");
                 }
             }
+        }
+
+        public void Day6()
+        {
+            Console.WriteLine("Day: 6");
+            // read input
+            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day6Input.txt");
+            var answers = data.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            
+            var formattedAns = new List<string>();
+            for(int i =0; i < answers.Count(); i++)
+            {
+                var a = answers[i].Replace("\r\n", ";");
+                formattedAns.Add(a);
+            }
+
+            //part1
+            int total = 0;
+            foreach(var ans in formattedAns)
+            {
+                List<char> countedChar = new List<char>();
+                var ac = ans.ToCharArray();
+                foreach(var c in ac)
+                {
+                    if(c.Equals(';') == false) { 
+                        if (false == countedChar.Contains(c))
+                        {
+                            countedChar.Add(c);
+                            total++;
+                        }
+                    }
+                }
+
+                //count each different char once
+                //add each to total
+            }
+
+            Console.WriteLine($"Total: {total}");
+
+
+            //part2
+            int allYes = 0;
+            foreach(var an in formattedAns)
+            {
+                var indiv = an.Split(';').ToList();
+                //char[] alpha = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'a', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z' };
+
+                var n = indiv.First().Count(c => indiv.TrueForAll(a => a.Contains(c)));
+                allYes += n;
+            }
+            Console.WriteLine($"Allyes: {allYes}");
         }
     }
 }
