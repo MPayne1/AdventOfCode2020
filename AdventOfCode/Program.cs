@@ -10,14 +10,16 @@ namespace AdventOfCode
             Console.WriteLine("Hello World!");
 
             Challenges challenges = new Challenges();
-            
+
             //challenges.Day1();
-            
+
             //challenges.Day2();
-            
+
             //challenges.Day3();
-            
-            challenges.Day4();
+
+            //challenges.Day4();
+
+            challenges.Day5();
             Console.ReadLine();
         }
 

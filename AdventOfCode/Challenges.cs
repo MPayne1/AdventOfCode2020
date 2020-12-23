@@ -350,5 +350,56 @@ namespace AdventOfCode
             }
             Console.WriteLine($"Valid Passports: {validPassports}");
         }
+
+        public void Day5()
+        {
+            Console.WriteLine("Day: 5");
+            var seats = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day5Input.txt");
+            int maxId = 0;
+            bool[] seatsFilled = new bool[900];
+            foreach(var seat in seats)
+            {
+                int front = 0;
+                int back = 127;
+                int left = 0;
+                int right = 7;
+                int seatId = 0;
+                var s = seat.ToCharArray();
+                foreach(var i in s)
+                {
+                    switch (i)
+                    {
+                        case 'F':
+                            back = (front + back + 1) / 2 - 1;
+                            break;
+                        case 'B':
+                            front = (front + back + 1) / 2;
+                            break;
+                        case 'L':
+                            right = (left + right + 1) / 2 - 1;
+                            break;
+                        case 'R':
+                            left = (left + right + 1) / 2;
+                            break;
+                        default: break;
+                    }
+                }
+                seatId = (front * 8) + left;
+
+                if (seatId > maxId) maxId = seatId;
+                seatsFilled[seatId] = true; 
+            }
+            Console.WriteLine($"Max seatId: {maxId}");
+
+
+            for(int j =1; j< seatsFilled.Length-1; j++)
+            {
+                
+                if (seatsFilled[j + 1] && seatsFilled[j - 1] && (false == seatsFilled[j]))
+                {
+                    Console.WriteLine($"My Seat: {j}");
+                }
+            }
+        }
     }
 }
