@@ -584,7 +584,70 @@ namespace AdventOfCode
 
         public void Day9()
         {
+            Console.WriteLine("Day: 9");
+            var numsStrings = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day9Input.txt").ToList();
+            List<long> nums = new List<long>();
+            numsStrings.ForEach(x => nums.Add(long.Parse(x)));
 
+            //var preamble = nums.Take(25);
+            long invalidAns = 0;
+            var resultFound = false;
+            for (int i = 25; i < nums.Count(); i++)
+            {
+                resultFound = false;
+                var numI = nums[i];
+                for(int j =0; j<25+i;j++)
+                {
+                    var numJ = nums[j];
+                    if(numJ < numI)
+                    {
+                        for (int k = 0; k < (25 + i); k++)
+                        {
+                            var numK = nums[k];
+                            if(numK < numI)
+                            {
+                                if (numJ + numK == numI && numJ != numK)
+                                {
+                                    resultFound = true;
+                                }else
+                                {
+                                    var wrong = numJ + numK;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (resultFound == false)
+                {
+                    Console.WriteLine($"First unanswered: {numI}");
+                    invalidAns = numI;
+                    break;
+                }
+
+
+            }
+
+
+            bool sumAnsFound = false;
+            for(int i=0; i < nums.Count()-1; i++)
+            {
+                if(sumAnsFound == false) { 
+                    for(int j =1; j < nums.Count()-1; j++)
+                    {
+                        if (sumAnsFound == false)
+                        {
+                            var temp = nums.GetRange(i, Math.Abs(j - i));
+                            if (temp.Sum() == invalidAns)
+                            {
+                                Console.WriteLine($"Sequence found, Max: {temp.Max()}, Min: {temp.Min()}");
+                                sumAnsFound = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
