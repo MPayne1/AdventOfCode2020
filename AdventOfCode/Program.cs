@@ -27,7 +27,9 @@ namespace AdventOfCode
 
             //challenges.Day8();
 
-            challenges.Day9();
+            //challenges.Day9();
+
+            challenges.Day10();
             Console.ReadLine();
         }
 

@@ -23,7 +23,7 @@ namespace AdventOfCode
 
             int[] numInts = new int[nums.Length];
 
-            for(int i = 0; i < nums.Length; i++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 numInts[i] = int.Parse(nums[i]);
             }
@@ -47,7 +47,7 @@ namespace AdventOfCode
                         Console.WriteLine($"2 num Answer: {num * num2}, num1: {num}, num2: {num2}");
                     }
 
-                    foreach(var num3 in numInts)
+                    foreach (var num3 in numInts)
                     {
                         if (num2 == 0 || num2 > 2020 || num2 == num3 || num == num3)
                         {
@@ -75,7 +75,7 @@ namespace AdventOfCode
             IEnumerable<string> rawLines = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day2Input.txt");
 
             // get passwords
-            foreach(var line in rawLines)
+            foreach (var line in rawLines)
             {
                 PasswordPolicy p = new PasswordPolicy();
 
@@ -86,7 +86,7 @@ namespace AdventOfCode
 
                 p.UpperLimit = int.Parse(rest[0]);
 
-                p.RequiredCharacter = char.Parse(rest[1].Remove(1,1));
+                p.RequiredCharacter = char.Parse(rest[1].Remove(1, 1));
 
                 p.password = rest[2];
 
@@ -96,7 +96,7 @@ namespace AdventOfCode
 
             int i = 0;
             //get how many are valid
-            foreach(var p in passwordList)
+            foreach (var p in passwordList)
             {
                 p.ComputeIsValid();
                 if (p.IsValid) i++;
@@ -107,7 +107,7 @@ namespace AdventOfCode
 
 
 
-            
+
 
         }
 
@@ -123,16 +123,16 @@ namespace AdventOfCode
 
 
             int rightPos = 0;
-           // int rightInc = 3;
-            int[] rightIncs = new int[] { 1, 3, 5, 7, 1};
+            // int rightInc = 3;
+            int[] rightIncs = new int[] { 1, 3, 5, 7, 1 };
             bool skip = false;
             long total = 1;
-            for(int j =0; j < rightIncs.Length; j++)
+            for (int j = 0; j < rightIncs.Length; j++)
             {
                 if (j == 4) skip = true;
-                for(int i=0; i< lines.Length; i++)
+                for (int i = 0; i < lines.Length; i++)
                 {
-                    if(firstDone == false)
+                    if (firstDone == false)
                     {
                         firstDone = true;
                         rightPos += rightIncs[j];
@@ -140,22 +140,22 @@ namespace AdventOfCode
                         continue;
                     }
 
-                    if(!skip)
+                    if (!skip)
                     {
-                        while(lines[i].Length <= (rightPos + 1))
+                        while (lines[i].Length <= (rightPos + 1))
                         {
                             var a = lines[i];
                             var b = a + a;
-                   
+
                             lines[i] = b;
                         }
-                
+
                         if (lines[i].Substring(rightPos, 1).Equals(tree.ToString())) trees++;
                         rightPos += rightIncs[j];
                     }
 
                     if (j == 4) skip = !skip;
-                  
+
                 }
                 Console.WriteLine($"RightInc: {rightIncs[j]}, Trees: {trees}");
                 total = total * trees;
@@ -173,7 +173,7 @@ namespace AdventOfCode
             Console.WriteLine("Day: 4");
             // read input
             var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day4Input.txt");
-            var passports = data.Split(new string[] { "\r\n\r\n" },StringSplitOptions.RemoveEmptyEntries);
+            var passports = data.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             int validPassports = 0;
 
@@ -200,16 +200,18 @@ namespace AdventOfCode
                 if (false == passport.Contains(passportId)) missingComponents++;
 
                 var isValid = false;
-                if (missingComponents == 0) {
+                if (missingComponents == 0)
+                {
                     isValid = true;
-                } else { isValid = false; }
+                }
+                else { isValid = false; }
 
                 missingComponents = 0;
 
                 //more validation
                 char[] separator = new char[] { ' ', '\r' };
                 var infos = passport.Split(separator);
-                if(isValid == true)
+                if (isValid == true)
                 {
                     foreach (var info in infos)
                     {
@@ -218,9 +220,12 @@ namespace AdventOfCode
                             var b = info.Split(':');
                             int year = int.Parse(b[1]);
 
-                            if (1920 <= year && year <= 2002) {
+                            if (1920 <= year && year <= 2002)
+                            {
                                 isValid = true;
-                            } else {
+                            }
+                            else
+                            {
                                 isValid = false;
                             }
                         }
@@ -245,7 +250,7 @@ namespace AdventOfCode
 
                             if (h.StartsWith('#'))
                             {
-                                if(h.Remove(0, 1).Length == 6)
+                                if (h.Remove(0, 1).Length == 6)
                                 {
                                     isValid = true;
                                 }
@@ -253,7 +258,8 @@ namespace AdventOfCode
                                 {
                                     isValid = false;
                                 }
-                            }else
+                            }
+                            else
                             {
                                 isValid = false;
                             }
@@ -270,7 +276,7 @@ namespace AdventOfCode
                                 try
                                 {
                                     var cmI = int.Parse(cm[0]);
-                                    if(150 <= cmI && cmI <= 193)
+                                    if (150 <= cmI && cmI <= 193)
                                     {
                                         isValid = true;
                                     }
@@ -279,15 +285,16 @@ namespace AdventOfCode
                                         isValid = false;
                                     }
                                 }
-                                catch(Exception e)
+                                catch (Exception e)
                                 {
                                     isValid = false;
                                 }
-                            
-                            } else if (inf.Contains("in"))
+
+                            }
+                            else if (inf.Contains("in"))
                             {
                                 var inI = inf.Split("in");
-                                if(inI[0].StartsWith(':')) inI[0] =inI[0].Remove(0, 1);
+                                if (inI[0].StartsWith(':')) inI[0] = inI[0].Remove(0, 1);
                                 try
                                 {
                                     var cmI = int.Parse(inI[0]);
@@ -304,7 +311,8 @@ namespace AdventOfCode
                                 {
                                     isValid = false;
                                 }
-                            } else
+                            }
+                            else
                             {
                                 isValid = false;
                             }
@@ -314,8 +322,8 @@ namespace AdventOfCode
                         if (isValid && info.Contains(eyeColour))
                         {
                             var e = info.Split(':')[1];
-                        
-                            if(e.Equals("amb") || e.Equals("blu") || e.Equals("brn") || e.Equals("gry") || e.Equals("grn") || e.Equals("hzl") || e.Equals("oth"))
+
+                            if (e.Equals("amb") || e.Equals("blu") || e.Equals("brn") || e.Equals("gry") || e.Equals("grn") || e.Equals("hzl") || e.Equals("oth"))
                             {
                                 isValid = true;
                             }
@@ -328,29 +336,31 @@ namespace AdventOfCode
                         if (isValid && info.Contains(passportId))
                         {
                             var b = info.Split(':');
-                            
+
                             if (b[1].Length == 9)
                             {
-                                try { 
+                                try
+                                {
                                     var p = int.Parse(b[1]);
                                     isValid = true;
                                 }
-                                catch(Exception e)
+                                catch (Exception e)
                                 {
                                     isValid = false;
                                 }
-                            } else
+                            }
+                            else
                             {
                                 isValid = false;
                             }
 
-                            
+
                         }
                     }
 
                     if (isValid) validPassports++;
                 }
-                
+
             }
             Console.WriteLine($"Valid Passports: {validPassports}");
         }
@@ -361,7 +371,7 @@ namespace AdventOfCode
             var seats = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day5Input.txt");
             int maxId = 0;
             bool[] seatsFilled = new bool[900];
-            foreach(var seat in seats)
+            foreach (var seat in seats)
             {
                 int front = 0;
                 int back = 127;
@@ -369,7 +379,7 @@ namespace AdventOfCode
                 int right = 7;
                 int seatId = 0;
                 var s = seat.ToCharArray();
-                foreach(var i in s)
+                foreach (var i in s)
                 {
                     switch (i)
                     {
@@ -391,14 +401,14 @@ namespace AdventOfCode
                 seatId = (front * 8) + left;
 
                 if (seatId > maxId) maxId = seatId;
-                seatsFilled[seatId] = true; 
+                seatsFilled[seatId] = true;
             }
             Console.WriteLine($"Max seatId: {maxId}");
 
 
-            for(int j =1; j< seatsFilled.Length-1; j++)
+            for (int j = 1; j < seatsFilled.Length - 1; j++)
             {
-                
+
                 if (seatsFilled[j + 1] && seatsFilled[j - 1] && (false == seatsFilled[j]))
                 {
                     Console.WriteLine($"My Seat: {j}");
@@ -412,9 +422,9 @@ namespace AdventOfCode
             // read input
             var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day6Input.txt");
             var answers = data.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            
+
             var formattedAns = new List<string>();
-            for(int i =0; i < answers.Count(); i++)
+            for (int i = 0; i < answers.Count(); i++)
             {
                 var a = answers[i].Replace("\r\n", ";");
                 formattedAns.Add(a);
@@ -422,13 +432,14 @@ namespace AdventOfCode
 
             //part1
             int total = 0;
-            foreach(var ans in formattedAns)
+            foreach (var ans in formattedAns)
             {
                 List<char> countedChar = new List<char>();
                 var ac = ans.ToCharArray();
-                foreach(var c in ac)
+                foreach (var c in ac)
                 {
-                    if(c.Equals(';') == false) { 
+                    if (c.Equals(';') == false)
+                    {
                         if (false == countedChar.Contains(c))
                         {
                             countedChar.Add(c);
@@ -446,7 +457,7 @@ namespace AdventOfCode
 
             //part2
             int allYes = 0;
-            foreach(var an in formattedAns)
+            foreach (var an in formattedAns)
             {
                 var indiv = an.Split(';').ToList();
                 //char[] alpha = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'a', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z' };
@@ -498,12 +509,12 @@ namespace AdventOfCode
             bool finished = false;
             int total = 0;
             string[] cached = new string[instructions.Length];
-            for(int k =0; k< instructions.Length;k++)
+            for (int k = 0; k < instructions.Length; k++)
             {
                 cached[k] = instructions[k];
             }
 
-            for(int j=0; j< instructions.Count(); j++)
+            for (int j = 0; j < instructions.Count(); j++)
             {
                 if (!finished)
                 {
@@ -511,7 +522,8 @@ namespace AdventOfCode
                     if (instructions[j].Contains("jmp"))
                     {
                         instructions[j] = instructions[j].Replace("jmp", "nop");
-                    } else if (instructions[j].Contains("nop"))
+                    }
+                    else if (instructions[j].Contains("nop"))
                     {
                         instructions[j] = instructions[j].Replace("nop", "jmp");
                     }
@@ -573,7 +585,8 @@ namespace AdventOfCode
                     }
                     visited.Clear();
                     instructions[j] = cachedInstr;
-                } else
+                }
+                else
                 {
                     Console.WriteLine($"Fixed Total: {total}");
                 }
@@ -596,20 +609,21 @@ namespace AdventOfCode
             {
                 resultFound = false;
                 var numI = nums[i];
-                for(int j =0; j<25+i;j++)
+                for (int j = 0; j < 25 + i; j++)
                 {
                     var numJ = nums[j];
-                    if(numJ < numI)
+                    if (numJ < numI)
                     {
                         for (int k = 0; k < (25 + i); k++)
                         {
                             var numK = nums[k];
-                            if(numK < numI)
+                            if (numK < numI)
                             {
                                 if (numJ + numK == numI && numJ != numK)
                                 {
                                     resultFound = true;
-                                }else
+                                }
+                                else
                                 {
                                     var wrong = numJ + numK;
                                 }
@@ -630,10 +644,11 @@ namespace AdventOfCode
 
 
             bool sumAnsFound = false;
-            for(int i=0; i < nums.Count()-1; i++)
+            for (int i = 0; i < nums.Count() - 1; i++)
             {
-                if(sumAnsFound == false) { 
-                    for(int j =1; j < nums.Count()-1; j++)
+                if (sumAnsFound == false)
+                {
+                    for (int j = 1; j < nums.Count() - 1; j++)
                     {
                         if (sumAnsFound == false)
                         {
@@ -644,10 +659,146 @@ namespace AdventOfCode
                                 sumAnsFound = true;
                                 break;
                             }
+
                         }
                     }
                 }
             }
         }
+
+        public void Day10()
+        {
+            //Console.WriteLine("Day: 10");
+            //var numsStrings = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day10Input.txt").ToList();
+            //List<int> nums = new List<int>();
+            //numsStrings.ForEach(x => nums.Add(int.Parse(x)));
+            //var orderedNums = nums.OrderBy(x => x).ToList();
+
+            //int jumps1 = 0;
+            //int jumps3 = 0;
+            //int outputJoltage = 0;
+            //orderedNums.Add(orderedNums.Max() + 3);
+            //for (int i = 0; i < orderedNums.Count(); i++)
+            //{
+            //    if ((orderedNums[i]) == outputJoltage + 1)
+            //    {
+            //        jumps1++;
+            //        outputJoltage += 1; ;
+            //    }
+            //    else if (orderedNums[i] == outputJoltage + 2)
+            //    {
+            //        outputJoltage += 2;
+            //    }
+            //    else if (orderedNums[i] == outputJoltage + 3)
+            //    {
+            //        jumps3++;
+            //        outputJoltage += 3;
+            //    }
+            //}
+
+            //Console.WriteLine($"1 jumps: {jumps1}, 3 jumps: {jumps3}");
+
+            //List<int> sol = new List<int>(2000);
+            //orderedNums.ForEach(x => sol.Add(x));
+            //for (int i = 0; i < orderedNums.Count() - 1; i++)
+            //{
+            //    var line = orderedNums[i];
+            //    sol[line] = 0;
+            //    if (sol.Contains(line - 1))
+            //    {
+            //        sol[line] += sol[line - 1];
+            //    }
+            //    if (sol.Contains(line - 2))
+            //    {
+            //        sol[line] += sol[line - 2];
+            //    }
+            //    if (sol.Contains(line - 3))
+            //    {
+            //        sol[line] += sol[line - 3];
+            //    }
+            //}
+
+            //Console.WriteLine(sol[orderedNums.Max()]);
+
+            string[] input = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day10Input.txt");
+            List<long> inputs = (Array.ConvertAll(input, s => Int64.Parse(s))).ToList();
+            inputs.Sort();
+
+            Console.WriteLine("########## Day 10 2020 ##########");
+            Console.WriteLine($"Part one solution: {SolvePartOne(inputs)}");
+            inputs.Add(inputs.Last() + 3);
+            inputs.Insert(0, 0);
+            Console.WriteLine($"Part two solution: {SolvePartTwo(inputs.ToArray())}");
+            Console.WriteLine("#################################");
+        }
+
+
+        private static long SolvePartOne(List<long> inputs)
+        {
+            int jolt_1_diff = 1;
+            int jolt_3_diff = 1;
+            for (int i = 0; i < inputs.Count - 1; i++)
+            {
+                long temp1 = inputs[i];
+                long temp2 = inputs[i + 1];
+                if (temp2 - temp1 == 1)
+                {
+                    jolt_1_diff++;
+                }
+                else if (temp2 - temp1 == 3)
+                {
+                    jolt_3_diff++;
+                }
+            }
+
+            return jolt_1_diff * jolt_3_diff;
+        }
+
+        /*
+            not my proudest solution, thanks reddit on help
+        
+            eg for 3,4,6,7
+            - 7 has no children and would have 1 path(7->10)
+            - 6 has one child(7): it has 1 path (6->7->10)
+            - 4 can go to 6 or 7: it has 2 paths (4->6->7->10, 4->7->10)
+            - 3 can go to 4 or 6: it has 3 paths (2 via 4: 3->4->6->7->10, 3->4->7->10 and 1 via 6 3->6->7->10).
+            - 0 can only reach 3: it has 3 paths.
+             
+             https://www.reddit.com/r/adventofcode/comments/kadp4g/why_does_this_code_work_and_what_does_it_do/gf9pixm?utm_source=share&utm_medium=web2x&context=3
+        */
+        static Dictionary<long, long> resultSet = new Dictionary<long, long>();
+        private static long SolvePartTwo(long[] inputs)
+        {
+            if (resultSet.ContainsKey(inputs.Length))
+            {
+                return resultSet[inputs.Length];
+            }
+
+            if (inputs.Length == 1)
+            {
+                return 1;
+            }
+
+            long total = 0;
+            for (int i = 1; i < inputs.Length; i++)
+            {
+                if (inputs[i] - inputs[0] <= 3)
+                {
+                    var temp = inputs.ToList().GetRange(i, inputs.Count() - i);
+                    total += SolvePartTwo(temp.ToArray());
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            resultSet.Add(inputs.Length, total);
+
+            return total;
+        }
+
     }
 }
+
+   
