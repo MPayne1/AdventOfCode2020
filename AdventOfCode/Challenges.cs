@@ -17,7 +17,7 @@ namespace AdventOfCode
         {
             Console.WriteLine("Day1: ");
             // read input file
-            string[] nums = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day1Input.txt");
+            string[] nums = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day1Input.txt");
             var resultFound = false;
             // find2 that add upto 2020
 
@@ -72,7 +72,7 @@ namespace AdventOfCode
             Console.WriteLine("Day: 2");
             List<PasswordPolicy> passwordList = new List<PasswordPolicy>();
 
-            IEnumerable<string> rawLines = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day2Input.txt");
+            IEnumerable<string> rawLines = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day2Input.txt");
 
             // get passwords
             foreach(var line in rawLines)
@@ -115,7 +115,7 @@ namespace AdventOfCode
         public void Day3()
         {
             Console.WriteLine("Day: 3");
-            var lines = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day3Input.txt");
+            var lines = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day3Input.txt");
             int trees = 0;
 
             char tree = '#';
@@ -172,7 +172,7 @@ namespace AdventOfCode
         {
             Console.WriteLine("Day: 4");
             // read input
-            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day4Input.txt");
+            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day4Input.txt");
             var passports = data.Split(new string[] { "\r\n\r\n" },StringSplitOptions.RemoveEmptyEntries);
 
             int validPassports = 0;
@@ -358,7 +358,7 @@ namespace AdventOfCode
         public void Day5()
         {
             Console.WriteLine("Day: 5");
-            var seats = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day5Input.txt");
+            var seats = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day5Input.txt");
             int maxId = 0;
             bool[] seatsFilled = new bool[900];
             foreach(var seat in seats)
@@ -410,7 +410,7 @@ namespace AdventOfCode
         {
             Console.WriteLine("Day: 6");
             // read input
-            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day6Input.txt");
+            var data = File.ReadAllText("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day6Input.txt");
             var answers = data.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
             
             var formattedAns = new List<string>();
@@ -458,12 +458,11 @@ namespace AdventOfCode
 
         }
 
-
         const string myBag = "shiny gold";
         public void Day7()
         {
             Console.WriteLine("Day: 7");
-            var rules = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day7Input.txt")
+            var rules = File.ReadLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day7Input.txt")
         .ToImmutableDictionary(
           line => Regex.Match(line, @"^(\w+ \w+)", Compiled).Groups[1].Value,
           line => line.Contains("no other bags.")
@@ -493,7 +492,7 @@ namespace AdventOfCode
         public void Day8()
         {
             Console.WriteLine("Day: 8");
-            var instructions = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\Day8Input.txt");
+            var instructions = File.ReadAllLines("D:\\payno\\Documents\\GitHub\\AdventOfCode2020\\AdventOfCode\\InputData\\Day8Input.txt");
 
             List<int> visited = new List<int>();
             bool finished = false;
@@ -581,6 +580,11 @@ namespace AdventOfCode
             }
 
             Console.WriteLine($"End total: {total}");
+        }
+
+        public void Day9()
+        {
+
         }
     }
 }
